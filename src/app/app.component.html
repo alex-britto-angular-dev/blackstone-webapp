@@ -1,205 +1,358 @@
-<!-- Hero Section -->
-<section class="hero">
-  <div class="container">
-    <div class="hero-content">
-      <h1>Fast & Reliable Shipping Solutions</h1>
-      <p>
-        Deliver your packages anywhere in the world with secure, affordable,
-        and real-time tracking services.
-      </p>
+<style>
+  * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Arial, Helvetica, sans-serif;
+  }
 
-      <div class="hero-buttons">
-        <button>Get a Quote</button>
-        <button>Track Shipment</button>
-      </div>
-    </div>
-  </div>
-</section>
+  body {
+    background: #f4f7fb;
+  }
+
+  .hero {
+    background: linear-gradient(135deg, #0052cc, #007bff);
+    color: white;
+    padding: 80px 20px;
+    text-align: center;
+  }
+
+  .hero h1 {
+    font-size: 48px;
+    margin-bottom: 20px;
+  }
+
+  .hero p {
+    max-width: 700px;
+    margin: auto;
+    font-size: 18px;
+    line-height: 1.8;
+  }
+
+  .btn {
+    display: inline-block;
+    margin: 30px 10px 0;
+    padding: 14px 30px;
+    border-radius: 5px;
+    text-decoration: none;
+    font-weight: bold;
+    transition: .3s;
+  }
+
+  .btn-primary {
+    background: #ff9800;
+    color: white;
+  }
+
+  .btn-primary:hover {
+    background: #e68900;
+  }
+
+  .btn-outline {
+    border: 2px solid white;
+    color: white;
+  }
+
+  .btn-outline:hover {
+    background: white;
+    color: #0052cc;
+  }
+
+  section {
+    padding: 70px 10%;
+  }
+
+  h2 {
+    text-align: center;
+    color: #003366;
+    margin-bottom: 40px;
+    font-size: 34px;
+  }
+
+  .about p {
+    text-align: center;
+    color: #666;
+    line-height: 1.8;
+    max-width: 900px;
+    margin: auto;
+  }
+
+  .services {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 25px;
+  }
+
+  .card {
+    background: white;
+    border-radius: 10px;
+    padding: 25px;
+    text-align: center;
+    box-shadow: 0 5px 20px rgba(0,0,0,.08);
+    transition: .3s;
+  }
+
+  .card:hover {
+    transform: translateY(-8px);
+  }
+
+  .card h3 {
+    color: #0052cc;
+    margin-bottom: 15px;
+  }
+
+  .card p {
+    color: #666;
+    line-height: 1.7;
+  }
+
+  .stats {
+    background: #0052cc;
+    color: white;
+    display: grid;
+    grid-template-columns: repeat(auto-fit,minmax(180px,1fr));
+    text-align: center;
+    gap: 20px;
+  }
+
+  .stats h1 {
+    font-size: 42px;
+  }
+
+  .steps {
+    display: flex;
+    justify-content: space-between;
+    gap: 20px;
+    flex-wrap: wrap;
+  }
+
+  .step {
+    flex: 1;
+    min-width: 220px;
+    text-align: center;
+    background: #fff;
+    padding: 25px;
+    border-radius: 10px;
+    box-shadow: 0 5px 15px rgba(0,0,0,.08);
+  }
+
+  .step span {
+    width: 60px;
+    height: 60px;
+    line-height: 60px;
+    display: inline-block;
+    border-radius: 50%;
+    background: #007bff;
+    color: white;
+    font-size: 24px;
+    margin-bottom: 15px;
+  }
+
+  .testimonial {
+    background: white;
+    padding: 30px;
+    border-left: 5px solid #007bff;
+    margin-bottom: 20px;
+    box-shadow: 0 5px 15px rgba(0,0,0,.08);
+  }
+
+  .testimonial p {
+    font-style: italic;
+    color: #555;
+    margin-bottom: 15px;
+  }
+
+  .contact {
+    background: #eef4ff;
+    text-align: center;
+  }
+
+  .contact p {
+    margin: 10px 0;
+    color: #444;
+    font-size: 18px;
+  }
+
+  footer {
+    background: #003366;
+    color: white;
+    text-align: center;
+    padding: 25px;
+  }
+</style>
+
+<!-- Hero -->
+<div class="hero">
+  <h1>SwiftShip Logistics</h1>
+  <p>
+    Fast, secure, and reliable shipping services for businesses and individuals.
+    Deliver your packages anywhere with confidence.
+  </p>
+
+  <a href="#" class="btn btn-primary">Get a Quote</a>
+  <a href="#" class="btn btn-outline">Track Shipment</a>
+</div>
 
 <!-- About -->
 <section class="about">
-  <div class="container">
-    <h2>About Us</h2>
-    <p>
-      SwiftShip Logistics provides fast, secure, and cost-effective shipping
-      services for businesses and individuals. We ensure every shipment reaches
-      its destination safely and on time.
-    </p>
-  </div>
+  <h2>About Us</h2>
+
+  <p>
+    SwiftShip Logistics offers premium courier, freight, and international
+    shipping solutions. Our experienced logistics network ensures your
+    shipments arrive safely and on time.
+  </p>
 </section>
 
 <!-- Services -->
-<section class="services">
-  <div class="container">
-    <h2>Our Services</h2>
+<section>
 
-    <div class="service-grid">
+  <h2>Our Services</h2>
 
-      <div class="card">
-        <h3>Express Delivery</h3>
-        <p>Same-day and next-day delivery for urgent shipments.</p>
-      </div>
+  <div class="services">
 
-      <div class="card">
-        <h3>International Shipping</h3>
-        <p>Worldwide delivery with customs clearance support.</p>
-      </div>
-
-      <div class="card">
-        <h3>Freight Services</h3>
-        <p>Road, air, and sea freight solutions for businesses.</p>
-      </div>
-
-      <div class="card">
-        <h3>Warehousing</h3>
-        <p>Secure storage and inventory management services.</p>
-      </div>
-
-      <div class="card">
-        <h3>Shipment Tracking</h3>
-        <p>Track your package in real time from pickup to delivery.</p>
-      </div>
-
-      <div class="card">
-        <h3>E-Commerce Logistics</h3>
-        <p>Complete order fulfillment and delivery solutions.</p>
-      </div>
-
+    <div class="card">
+      <h3>🚚 Express Delivery</h3>
+      <p>Fast same-day and next-day delivery for urgent shipments.</p>
     </div>
-  </div>
-</section>
 
-<!-- Why Choose Us -->
-<section class="why-us">
-  <div class="container">
-    <h2>Why Choose Us?</h2>
-
-    <ul>
-      <li>✔ Real-Time Tracking</li>
-      <li>✔ Fast Delivery</li>
-      <li>✔ Affordable Pricing</li>
-      <li>✔ 24/7 Customer Support</li>
-      <li>✔ Secure Packaging</li>
-      <li>✔ Worldwide Coverage</li>
-    </ul>
-  </div>
-</section>
-
-<!-- How It Works -->
-<section class="steps">
-  <div class="container">
-    <h2>How It Works</h2>
-
-    <div class="step-grid">
-
-      <div class="step">
-        <h3>1</h3>
-        <h4>Book Shipment</h4>
-        <p>Enter pickup and delivery details online.</p>
-      </div>
-
-      <div class="step">
-        <h3>2</h3>
-        <h4>Package Pickup</h4>
-        <p>Our courier collects your parcel from your location.</p>
-      </div>
-
-      <div class="step">
-        <h3>3</h3>
-        <h4>Track Package</h4>
-        <p>Monitor your shipment throughout its journey.</p>
-      </div>
-
-      <div class="step">
-        <h3>4</h3>
-        <h4>Delivered</h4>
-        <p>Your package reaches its destination safely.</p>
-      </div>
-
+    <div class="card">
+      <h3>🌍 International Shipping</h3>
+      <p>Worldwide shipping with customs clearance support.</p>
     </div>
+
+    <div class="card">
+      <h3>📦 Freight Services</h3>
+      <p>Road, sea, and air freight for businesses of every size.</p>
+    </div>
+
+    <div class="card">
+      <h3>🏢 Warehousing</h3>
+      <p>Secure storage and inventory management solutions.</p>
+    </div>
+
+    <div class="card">
+      <h3>📍 Live Tracking</h3>
+      <p>Monitor your shipment in real time from pickup to delivery.</p>
+    </div>
+
+    <div class="card">
+      <h3>🛒 E-Commerce Logistics</h3>
+      <p>Complete fulfillment services for online stores.</p>
+    </div>
+
   </div>
+
 </section>
 
 <!-- Statistics -->
 <section class="stats">
-  <div class="container">
 
-    <div class="stat">
-      <h2>15M+</h2>
-      <p>Packages Delivered</p>
+  <div>
+    <h1>15M+</h1>
+    <p>Packages Delivered</p>
+  </div>
+
+  <div>
+    <h1>500K+</h1>
+    <p>Happy Customers</p>
+  </div>
+
+  <div>
+    <h1>150+</h1>
+    <p>Countries Covered</p>
+  </div>
+
+  <div>
+    <h1>99.5%</h1>
+    <p>On-Time Delivery</p>
+  </div>
+
+</section>
+
+<!-- Process -->
+<section>
+
+  <h2>How It Works</h2>
+
+  <div class="steps">
+
+    <div class="step">
+      <span>1</span>
+      <h3>Book</h3>
+      <p>Schedule your shipment online.</p>
     </div>
 
-    <div class="stat">
-      <h2>500K+</h2>
-      <p>Happy Customers</p>
+    <div class="step">
+      <span>2</span>
+      <h3>Pickup</h3>
+      <p>Our courier collects your package.</p>
     </div>
 
-    <div class="stat">
-      <h2>150+</h2>
-      <p>Countries Served</p>
+    <div class="step">
+      <span>3</span>
+      <h3>Track</h3>
+      <p>Track every movement in real time.</p>
     </div>
 
-    <div class="stat">
-      <h2>99.5%</h2>
-      <p>On-Time Delivery</p>
+    <div class="step">
+      <span>4</span>
+      <h3>Delivered</h3>
+      <p>Safe and on-time delivery guaranteed.</p>
     </div>
 
   </div>
+
 </section>
 
 <!-- Testimonials -->
-<section class="testimonials">
-  <div class="container">
+<section>
 
-    <h2>Customer Reviews</h2>
+  <h2>Customer Reviews</h2>
 
-    <div class="testimonial">
-      <p>
-        "Excellent service! My package arrived ahead of schedule. Highly
-        recommended."
-      </p>
-      <h4>- Sarah Johnson</h4>
-    </div>
+  <div class="testimonial">
+    <p>
+      "SwiftShip exceeded our expectations. Delivery was fast and tracking was
+      accurate throughout the journey."
+    </p>
 
-    <div class="testimonial">
-      <p>
-        "Affordable pricing with accurate shipment tracking."
-      </p>
-      <h4>- Michael Brown</h4>
-    </div>
-
+    <strong>— Sarah Johnson</strong>
   </div>
+
+  <div class="testimonial">
+    <p>
+      "Affordable prices and outstanding customer support. Highly recommended."
+    </p>
+
+    <strong>— Michael Brown</strong>
+  </div>
+
 </section>
 
 <!-- Contact -->
 <section class="contact">
-  <div class="container">
 
-    <h2>Contact Us</h2>
+  <h2>Contact Us</h2>
 
-    <p><strong>Address:</strong> 245 Logistics Park, Chennai, India</p>
-    <p><strong>Phone:</strong> +91 98765 43210</p>
-    <p><strong>Email:</strong> support@swiftship.com</p>
-    <p><strong>Working Hours:</strong> Mon - Sat | 8 AM - 8 PM</p>
+  <p>📍 245 Logistics Park, Chennai, India</p>
 
-  </div>
+  <p>📞 +91 98765 43210</p>
+
+  <p>✉ support@swiftship.com</p>
+
+  <p>🕘 Monday - Saturday | 8:00 AM - 8:00 PM</p>
+
 </section>
 
 <!-- Footer -->
 <footer>
-  <div class="container">
+  <h3>SwiftShip Logistics</h3>
 
-    <h3>SwiftShip Logistics</h3>
+  <p>Reliable Shipping. Trusted Worldwide.</p>
 
-    <p>
-      Reliable shipping solutions for businesses and individuals worldwide.
-    </p>
+  <br>
 
-    <hr>
-
-    <p>© 2026 SwiftShip Logistics. All Rights Reserved.</p>
-
-  </div>
+  <p>© 2026 SwiftShip Logistics. All Rights Reserved.</p>
 </footer>
 
 <!-- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * -->
