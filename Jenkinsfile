@@ -24,10 +24,12 @@ pipeline {
         stage('Deploy to IIS') {
             steps {
                 bat '''
+                @echo off
+
                 echo Cleaning IIS...
 
                 if exist "C:\\inetpub\\wwwroot\\*" (
-                    del /F /Q "C:\\inetpub\\wwwroot\\*"
+                    del /F /Q "C:\\inetpub\\wwwroot\\*" 2>nul
                     for /D %%G in ("C:\\inetpub\\wwwroot\\*") do rmdir /S /Q "%%G"
                 )
 
@@ -36,6 +38,7 @@ pipeline {
                 xcopy "dist\\blackstone-starter\\*" "C:\\inetpub\\wwwroot\\" /E /I /Y
 
                 echo Deployment Successful.
+                exit /b 0
                 '''
             }
         }
