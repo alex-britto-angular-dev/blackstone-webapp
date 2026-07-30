@@ -9,13 +9,13 @@ pipeline {
             }
         }
 
-        stage('Install') {
+        stage('Install Dependencies') {
             steps {
                 bat 'npm ci'
             }
         }
 
-        stage('Build') {
+        stage('Build Angular') {
             steps {
                 bat 'npm run build'
             }
@@ -26,22 +26,27 @@ pipeline {
                 bat '''
                 @echo off
 
-                echo Cleaning IIS...
+                echo ===== Deploying to IIS =====
 
-                if exist "C:\\inetpub\\wwwroot\\*" (
-                    del /F /Q "C:\\inetpub\\wwwroot\\*" 2>nul
-                    for /D %%G in ("C:\\inetpub\\wwwroot\\*") do rmdir /S /Q "%%G"
+                if not exist "C:\\inetpub\\wwwroot" (
+                    mkdir "C:\\inetpub\\wwwroot"
                 )
-
-                echo Copying build files...
 
                 xcopy "dist\\blackstone-starter\\*" "C:\\inetpub\\wwwroot\\" /E /I /Y
 
-                echo Deployment Successful.
-                exit /b 0
+                echo ===== Deployment Completed =====
                 '''
             }
         }
+    }
 
+    post {
+        success {
+            echo 'Pipeline completed successfully!'
+        }
+
+        failure {
+            echo 'Pipeline failed.'
+        }
     }
 }
