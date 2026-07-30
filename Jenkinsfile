@@ -9,13 +9,13 @@ pipeline {
             }
         }
 
-        stage('Install Dependencies') {
+        stage('Install') {
             steps {
                 bat 'npm ci'
             }
         }
 
-        stage('Build Angular') {
+        stage('Build') {
             steps {
                 bat 'npm run build'
             }
@@ -24,18 +24,21 @@ pipeline {
         stage('Deploy to IIS') {
             steps {
                 bat '''
-                echo Cleaning IIS folder...
+                echo Cleaning IIS...
 
-                del /Q "C:\\inetpub\\wwwroot\\*.*"
-                for /D %%x in ("C:\\inetpub\\wwwroot\\*") do rmdir /S /Q "%%x"
+                if exist "C:\\inetpub\\wwwroot\\*" (
+                    del /F /Q "C:\\inetpub\\wwwroot\\*"
+                    for /D %%G in ("C:\\inetpub\\wwwroot\\*") do rmdir /S /Q "%%G"
+                )
 
-                echo Copying Angular build...
+                echo Copying build files...
 
-                xcopy "dist\\blackstone-starter\\*" "C:\\inetpub\\wwwroot\\" /E /Y /I
+                xcopy "dist\\blackstone-starter\\*" "C:\\inetpub\\wwwroot\\" /E /I /Y
 
-                echo Deployment completed.
+                echo Deployment Successful.
                 '''
             }
         }
+
     }
 }
