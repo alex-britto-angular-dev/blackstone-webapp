@@ -18,7 +18,6 @@ pipeline {
 
         stage('SonarQube Analysis') {
             steps {
-
                 script {
 
                     def scannerHome = tool 'SonarScanner'
@@ -30,13 +29,12 @@ pipeline {
                         -Dsonar.projectKey=blackstone-webapp ^
                         -Dsonar.projectName=Blackstone-WebApp ^
                         -Dsonar.sources=src ^
+                        -Dsonar.exclusions=node_modules/**,dist/** ^
                         -Dsonar.sourceEncoding=UTF-8
                         """
 
                     }
-
                 }
-
             }
         }
 
@@ -52,20 +50,31 @@ pipeline {
             }
         }
 
-        stage('Deploy IIS') {
+        stage('Deploy to IIS') {
             steps {
                 powershell '.\\deployment\\Deploy.ps1'
             }
 
             post {
-
                 failure {
+                    echo 'Deployment Failed. Starting Rollback...'
                     powershell '.\\deployment\\Rollback.ps1'
                 }
 
+                success {
+                    echo 'Deployment Successful.'
+                }
             }
         }
-
     }
 
+    post {
+        success {
+            echo 'Pipeline Completed Successfully.'
+        }
+
+        failure {
+            echo 'Pipeline Failed.'
+        }
+    }
 }
