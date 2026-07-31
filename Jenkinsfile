@@ -2,6 +2,10 @@ pipeline {
 
     agent any
 
+    tools {
+        sonarQube 'SonarScanner'
+    }
+
     stages {
 
         stage('Checkout') {
@@ -16,9 +20,33 @@ pipeline {
             }
         }
 
+        stage('SonarQube Analysis') {
+            steps {
+
+                script {
+
+                    def scannerHome = tool 'SonarScanner'
+
+                    withSonarQubeEnv('LocalSonar') {
+
+                        bat """
+                        "${scannerHome}\\bin\\sonar-scanner.bat" ^
+                        -Dsonar.projectKey=blackstone-webapp ^
+                        -Dsonar.projectName=Blackstone-WebApp ^
+                        -Dsonar.sources=src ^
+                        -Dsonar.sourceEncoding=UTF-8
+                        """
+
+                    }
+
+                }
+
+            }
+        }
+
         stage('Build Angular') {
             steps {
-                bat 'npm run build-test'
+                bat 'npm run build'
             }
         }
 
@@ -28,37 +56,18 @@ pipeline {
             }
         }
 
-        stage('Deploy to IIS') {
-
+        stage('Deploy IIS') {
             steps {
                 powershell '.\\deployment\\Deploy.ps1'
             }
 
             post {
 
-                success {
-                    echo 'Deployment Successful'
-                }
-
                 failure {
-                    echo 'Deployment Failed'
                     powershell '.\\deployment\\Rollback.ps1'
                 }
 
             }
-
-        }
-
-    }
-
-    post {
-
-        success {
-            echo 'Pipeline Completed Successfully'
-        }
-
-        failure {
-            echo 'Pipeline Failed'
         }
 
     }
