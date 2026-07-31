@@ -18,7 +18,7 @@ pipeline {
 
         stage('Build Angular') {
             steps {
-                bat 'npm run build-test'
+                bat 'npm run build'
             }
         }
 
@@ -29,9 +29,24 @@ pipeline {
         }
 
         stage('Deploy to IIS') {
+
             steps {
                 powershell '.\\deployment\\Deploy.ps1'
             }
+
+            post {
+
+                success {
+                    echo 'Deployment Successful'
+                }
+
+                failure {
+                    echo 'Deployment Failed'
+                    powershell '.\\deployment\\Rollback.ps1'
+                }
+
+            }
+
         }
 
     }
@@ -39,12 +54,11 @@ pipeline {
     post {
 
         success {
-            echo 'Deployment Successful'
+            echo 'Pipeline Completed Successfully'
         }
 
         failure {
-            echo 'Deployment Failed'
-            powershell '.\\deployment\\Rollback.ps1'
+            echo 'Pipeline Failed'
         }
 
     }

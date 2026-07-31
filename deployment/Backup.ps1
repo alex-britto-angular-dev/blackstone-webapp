@@ -1,7 +1,7 @@
 $source = "C:\inetpub\wwwroot"
 $backup = "D:\Backups\Blackstone"
 
-Write-Host "Creating backup..."
+Write-Host "===== Backup Started ====="
 
 if (!(Test-Path $backup)) {
     New-Item -ItemType Directory -Path $backup | Out-Null
@@ -9,4 +9,4 @@ if (!(Test-Path $backup)) {
 
 Copy-Item "$source\*" -Destination $backup -Recurse -Force
 
-Write-Host "Backup completed."
+Write-Host "===== Backup Completed ====="

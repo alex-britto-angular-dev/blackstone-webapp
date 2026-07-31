@@ -1,8 +1,11 @@
 $backup = "D:\Backups\Blackstone"
 $destination = "C:\inetpub\wwwroot"
 
-Write-Host "Rolling back..."
+Write-Host "===== Rollback Started ====="
 
-Copy-Item "$backup\*" -Destination $destination -Recurse -Force
+Copy-Item "$backup\*" `
+          -Destination $destination `
+          -Recurse `
+          -Force
 
-Write-Host "Rollback completed."
+Write-Host "===== Rollback Completed ====="
