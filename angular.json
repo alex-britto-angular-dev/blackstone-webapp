@@ -28,7 +28,11 @@
             "assets": [
               "src/favicon.ico",
               "src/assets",
-              "src/web.config"
+              {
+                "glob": "web.config",
+                "input": "deployment",
+                "output": "/"
+              }
             ],
             "styles": [
               "src/styles.scss"
@@ -92,7 +96,11 @@
             "assets": [
               "src/favicon.ico",
               "src/assets",
-              "src/web.config"
+              {
+                "glob": "web.config",
+                "input": "deployment",
+                "output": "/"
+              }
             ],
             "styles": [
               "src/styles.scss"

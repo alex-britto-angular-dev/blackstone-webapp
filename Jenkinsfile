@@ -1,4 +1,5 @@
 pipeline {
+
     agent any
 
     stages {
@@ -21,32 +22,31 @@ pipeline {
             }
         }
 
-        stage('Deploy to IIS') {
+        stage('Backup IIS') {
             steps {
-                bat '''
-                @echo off
-
-                echo ===== Deploying to IIS =====
-
-                if not exist "C:\\inetpub\\wwwroot" (
-                    mkdir "C:\\inetpub\\wwwroot"
-                )
-
-                xcopy "dist\\blackstone-starter\\*" "C:\\inetpub\\wwwroot\\" /E /I /Y
-
-                echo ===== Deployment Completed =====
-                '''
+                powershell '.\\deployment\\Backup.ps1'
             }
         }
+
+        stage('Deploy to IIS') {
+            steps {
+                powershell '.\\deployment\\Deploy.ps1'
+            }
+        }
+
     }
 
     post {
+
         success {
-            echo 'Pipeline completed successfully!'
+            echo 'Deployment Successful'
         }
 
         failure {
-            echo 'Pipeline failed.'
+            echo 'Deployment Failed'
+            powershell '.\\deployment\\Rollback.ps1'
         }
+
     }
+
 }
