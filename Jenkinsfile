@@ -15,7 +15,7 @@ pipeline {
             }
         }
 
-        stage('Check Node Version') {
+        /* stage('Check Node Version') {
             steps {
                 bat '''
                 echo ===== NODE INFO =====
@@ -24,7 +24,7 @@ pipeline {
                 where node
                 '''
             }
-        }
+        } */
 
         stage('ESLint') {
             steps {
