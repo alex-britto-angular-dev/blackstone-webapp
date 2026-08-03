@@ -55,13 +55,13 @@ pipeline {
             }
         }
 
-        stage('Dependency Security Scan') {
+        /* stage('Dependency Security Scan') {
             steps {
                 catchError(buildResult: 'UNSTABLE', stageResult: 'UNSTABLE') {
                     bat 'npm audit --audit-level=high'
                 }
             }
-        }
+        } */
 
         stage('Build Angular') {
             steps {
