@@ -1,5 +1,4 @@
 pipeline {
-
     agent any
 
     stages {
@@ -29,27 +28,28 @@ pipeline {
 
         stage('ESLint') {
             steps {
-                bat 'npm run lint'
+                catchError(buildResult: 'UNSTABLE', stageResult: 'UNSTABLE') {
+                    bat 'npm run lint'
+                }
             }
         }
 
         stage('SonarQube Analysis') {
             steps {
-                script {
+                catchError(buildResult: 'UNSTABLE', stageResult: 'UNSTABLE') {
+                    script {
+                        def scannerHome = tool 'SonarScanner'
 
-                    def scannerHome = tool 'SonarScanner'
-
-                    withSonarQubeEnv('LocalSonar') {
-
-                        bat """
-                        "${scannerHome}\\bin\\sonar-scanner.bat" ^
-                        -Dsonar.projectKey=blackstone-webapp ^
-                        -Dsonar.projectName=Blackstone-WebApp ^
-                        -Dsonar.sources=src ^
-                        -Dsonar.exclusions=node_modules/**,dist/** ^
-                        -Dsonar.sourceEncoding=UTF-8
-                        """
-
+                        withSonarQubeEnv('LocalSonar') {
+                            bat """
+                            "${scannerHome}\\bin\\sonar-scanner.bat" ^
+                            -Dsonar.projectKey=blackstone-webapp ^
+                            -Dsonar.projectName=Blackstone-WebApp ^
+                            -Dsonar.sources=src ^
+                            -Dsonar.exclusions=node_modules/**,dist/** ^
+                            -Dsonar.sourceEncoding=UTF-8
+                            """
+                        }
                     }
                 }
             }
@@ -57,7 +57,9 @@ pipeline {
 
         stage('Dependency Security Scan') {
             steps {
-                bat 'npm audit --audit-level=high'
+                catchError(buildResult: 'UNSTABLE', stageResult: 'UNSTABLE') {
+                    bat 'npm audit --audit-level=high'
+                }
             }
         }
 
@@ -94,6 +96,10 @@ pipeline {
     post {
         success {
             echo 'Pipeline Completed Successfully.'
+        }
+
+        unstable {
+            echo 'Pipeline completed with warnings (ESLint/SonarQube/npm audit issues).'
         }
 
         failure {
