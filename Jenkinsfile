@@ -16,6 +16,17 @@ pipeline {
             }
         }
 
+        stage('Check Node Version') {
+            steps {
+                bat '''
+                echo ===== NODE INFO =====
+                node -v
+                npm -v
+                where node
+                '''
+            }
+        }
+
         stage('ESLint') {
             steps {
                 bat 'npm run lint'
