@@ -16,6 +16,12 @@ pipeline {
             }
         }
 
+        stage('ESLint') {
+            steps {
+                bat 'npm run lint'
+            }
+        }
+
         stage('SonarQube Analysis') {
             steps {
                 script {
@@ -35,6 +41,12 @@ pipeline {
 
                     }
                 }
+            }
+        }
+
+        stage('Dependency Security Scan') {
+            steps {
+                bat 'npm audit --audit-level=high'
             }
         }
 
