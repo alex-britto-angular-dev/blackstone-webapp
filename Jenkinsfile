@@ -2,7 +2,6 @@ pipeline {
     agent any
 
     stages {
-
         stage('Checkout') {
             steps {
                 checkout scm
@@ -68,10 +67,14 @@ pipeline {
                 bat 'npm run build'
             }
         }
-
+        
         stage('Backup IIS') {
             steps {
                 powershell '.\\deployment\\Backup.ps1'
+                powershell '''
+        Write-Host "===== Available Backups ====="
+        Get-ChildItem "D:\\IIS_Backup" | Select-Object Name, LastWriteTime
+        '''
             }
         }
 
