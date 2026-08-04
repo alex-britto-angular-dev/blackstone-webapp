@@ -54,6 +54,32 @@ pipeline {
             }
         }
 
+        stage('Quality Gate') {
+            steps {
+                timeout(time: 10, unit: 'MINUTES') {
+                    script {
+                        def qg = waitForQualityGate()
+                        if (qg.status != 'OK') {
+                            emailext(
+                                to: 'angular@blackstoneshipping.com',
+                                subject: "SonarQube Quality Gate Failed - ${env.JOB_NAME}",
+                                body: """
+                                        Project: ${env.JOB_NAME}
+                                        Build Number: ${env.BUILD_NUMBER}
+
+                                        SonarQube Quality Gate Status: ${qg.status}
+
+                                        Build URL:
+                                        ${env.BUILD_URL}
+                                      """
+                            )
+                            error("Pipeline aborted due to SonarQube Quality Gate failure: ${qg.status}")
+                        }
+                    }
+                }
+            }
+        }
+
         /* stage('Dependency Security Scan') {
             steps {
                 catchError(buildResult: 'UNSTABLE', stageResult: 'UNSTABLE') {
@@ -72,9 +98,9 @@ pipeline {
             steps {
                 powershell '.\\deployment\\Backup.ps1'
                 powershell '''
-        Write-Host "===== Available Backups ====="
-        Get-ChildItem "D:\\IIS_Backup" | Select-Object Name, LastWriteTime
-        '''
+                Write-Host "===== Available Backups ====="
+                Get-ChildItem "D:\\IIS_Backup" | Select-Object Name, LastWriteTime
+                '''
             }
         }
 
