@@ -7,7 +7,7 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
 
-  // title = 'blackstone-starter';
+  title = 'blackstone-starter';
 
   // // Intentionally added for SonarQube testing only
   // private readonly apiKey = '1234567890abcdef1234567890abcdef';
@@ -61,7 +61,7 @@ export class AppComponent {
   //   console.log(username, password);
   // }
 
-   ngOnInit(): void {
-
+  ngOnInit(): void {
+    console.log('Application Started');
   }
 }
