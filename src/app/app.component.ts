@@ -7,57 +7,61 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
 
-  title = 'blackstone-starter';
+  // title = 'blackstone-starter';
 
-  // Intentionally added for SonarQube testing only
-  private readonly apiKey = '1234567890abcdef1234567890abcdef';
+  // // Intentionally added for SonarQube testing only
+  // private readonly apiKey = '1234567890abcdef1234567890abcdef';
 
-  // Unused variable
-  a = '';
+  // // Unused variable
+  // a = '';
 
-  // Hardcoded password (Security Hotspot in many quality profiles)
-  password = 'admin123';
+  // // Hardcoded password (Security Hotspot in many quality profiles)
+  // password = 'admin123';
 
-  ngOnInit(): void {
+  // ngOnInit(): void {
 
-    // Unused local variable
-    const temp = 100;
+  //   // Unused local variable
+  //   const temp = 100;
 
-    // Empty if block
-    if (this.title === 'blackstone-starter') {
+  //   // Empty if block
+  //   if (this.title === 'blackstone-starter') {
 
-    }
+  //   }
 
-    // Console log
-    console.log('Application Started');
+  //   // Console log
+  //   console.log('Application Started');
 
-    // Duplicate code
-    let total1 = 0;
-    for (let i = 0; i < 10; i++) {
-      total1 += i;
-    }
+  //   // Duplicate code
+  //   let total1 = 0;
+  //   for (let i = 0; i < 10; i++) {
+  //     total1 += i;
+  //   }
 
-    let total2 = 0;
-    for (let i = 0; i < 10; i++) {
-      total2 += i;
-    }
+  //   let total2 = 0;
+  //   for (let i = 0; i < 10; i++) {
+  //     total2 += i;
+  //   }
 
-    // Equality check using ==
-    /* if (5 == '5') {
-      console.log('Equal');
-    } */
+  //   // Equality check using ==
+  //   /* if (5 == '5') {
+  //     console.log('Equal');
+  //   } */
 
-    // Empty catch block
-    try {
-      throw new Error('Test');
-    } catch (e) {
+  //   // Empty catch block
+  //   try {
+  //     throw new Error('Test');
+  //   } catch (e) {
 
-    }
-  }
+  //   }
+  // }
 
-   login() {
-    const username = 'admin';
-    const password = 'Admin@123'; // Test only
-    console.log(username, password);
+  //  login() {
+  //   const username = 'admin';
+  //   const password = 'Admin@123'; // Test only
+  //   console.log(username, password);
+  // }
+
+   ngOnInit(): void {
+
   }
 }
