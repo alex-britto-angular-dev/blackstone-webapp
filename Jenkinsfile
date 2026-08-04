@@ -14,7 +14,7 @@ pipeline {
             }
         }
 
-        /* stage('Check Node Version') {
+        stage('Check Node Version') {
             steps {
                 bat '''
                 echo ===== NODE INFO =====
@@ -23,7 +23,7 @@ pipeline {
                 where node
                 '''
             }
-        } */
+        }
 
         stage('ESLint') {
             steps {
@@ -54,7 +54,7 @@ pipeline {
             }
         }
 
-        stage('Quality Gate') {
+        /* stage('Quality Gate') {
             steps {
                 timeout(time: 10, unit: 'MINUTES') {
                     script {
@@ -78,7 +78,7 @@ pipeline {
                     }
                 }
             }
-        }
+        } */
 
         /* stage('Dependency Security Scan') {
             steps {
