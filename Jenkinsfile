@@ -71,7 +71,7 @@ pipeline {
             }
         }
         
-        stage('Backup IIS') {
+        stage('Backup') {
             steps {
                 powershell '.\\deployment\\Backup.ps1'
                 powershell '''
@@ -81,7 +81,7 @@ pipeline {
             }
         }
 
-        stage('Deploy to IIS') {
+        stage('Deploy') {
             steps {
                 powershell '.\\deployment\\Deploy.ps1'
             }
