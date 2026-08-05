@@ -120,6 +120,25 @@ pipeline {
                 }
             }
         }
+
+        stage('Playwright Tests') {
+            steps {
+                bat 'npx playwright test'
+            }
+
+            post {
+                always {
+                    publishHTML([
+                        allowMissing: true,
+                        alwaysLinkToLastBuild: true,
+                        keepAll: true,
+                        reportDir: 'playwright-report',
+                        reportFiles: 'index.html',
+                        reportName: 'Playwright Report'
+                    ])
+                }
+            }
+        }
     }
 
     post {
