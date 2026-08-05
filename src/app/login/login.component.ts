@@ -33,4 +33,8 @@ export class LoginComponent {
       }
     });
   }
+
+  ngOnInit(): void {
+    console.log('Application Started');
+  }
 }
