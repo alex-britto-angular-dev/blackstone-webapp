@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 
 @Component({
@@ -7,12 +7,12 @@ import { HttpClient } from '@angular/common/http';
   styleUrls: ['./login.component.scss']
 })
 export class LoginComponent implements OnInit {
+
   username = '';
   password = '';
-
   message = '';
 
-  constructor(private http: HttpClient) { }
+  private http = inject(HttpClient);
 
   login() {
     const body = {
