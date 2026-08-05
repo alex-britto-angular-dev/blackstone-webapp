@@ -2,7 +2,7 @@ pipeline {
     agent any
 
     stages {
-        stage('Checkout') {
+        /* stage('Checkout') {
             steps {
                 checkout scm
             }
@@ -12,9 +12,16 @@ pipeline {
             steps {
                 bat 'npm ci'
             }
+        } */
+
+        stage('Checkout & Install Dependencies') {
+            steps {
+                checkout scm
+                bat 'npm ci'
+            }
         }
 
-        stage('Check Node Version') {
+        /* stage('Check Node Version') {
             steps {
                 bat '''
                 echo ===== NODE INFO =====
@@ -23,19 +30,23 @@ pipeline {
                 where node
                 '''
             }
-        }
+        } */
 
         stage('ESLint') {
-            steps {
+            /* steps {
                 catchError(buildResult: 'UNSTABLE', stageResult: 'UNSTABLE') {
                     bat 'npm run lint'
                 }
+            } */
+
+            steps {
+                bat 'npm run lint'
             }
         }
 
         stage('SonarQube Analysis') {
             steps {
-                catchError(buildResult: 'UNSTABLE', stageResult: 'UNSTABLE') {
+                //catchError(buildResult: 'UNSTABLE', stageResult: 'UNSTABLE') {
                     script {
                         def scannerHome = tool 'SonarScanner'
 
@@ -50,43 +61,9 @@ pipeline {
                             """
                         }
                     }
-                }
+                //}
             }
         }
-
-        /* stage('Quality Gate') {
-            steps {
-                timeout(time: 10, unit: 'MINUTES') {
-                    script {
-                        def qg = waitForQualityGate()
-                        if (qg.status != 'OK') {
-                            emailext(
-                                to: 'angular@blackstoneshipping.com',
-                                subject: "SonarQube Quality Gate Failed - ${env.JOB_NAME}",
-                                body: """
-                                        Project: ${env.JOB_NAME}
-                                        Build Number: ${env.BUILD_NUMBER}
-
-                                        SonarQube Quality Gate Status: ${qg.status}
-
-                                        Build URL:
-                                        ${env.BUILD_URL}
-                                      """
-                            )
-                            error("Pipeline aborted due to SonarQube Quality Gate failure: ${qg.status}")
-                        }
-                    }
-                }
-            }
-        } */
-
-        /* stage('Dependency Security Scan') {
-            steps {
-                catchError(buildResult: 'UNSTABLE', stageResult: 'UNSTABLE') {
-                    bat 'npm audit --audit-level=high'
-                }
-            }
-        } */
 
         stage('Build Angular') {
             steps {
@@ -133,9 +110,21 @@ pipeline {
             }
 
             post {
+                success {
+                    echo 'Playwright Tests Passed.'
+                }
+
+                failure {
+                    echo 'Playwright Tests Failed. Starting Rollback...'
+                    powershell '.\\deployment\\Rollback.ps1'
+
+                    // Rollback successful ஆன பிறகும் build FAILED ஆக mark ஆகும்
+                    error('Playwright tests failed. Deployment rolled back.')
+                }
+
                 always {
                     publishHTML([
-                        allowMissing: false,
+                        allowMissing: true,
                         alwaysLinkToLastBuild: true,
                         keepAll: true,
                         reportDir: 'playwright-report',
@@ -161,3 +150,26 @@ pipeline {
         }
     }
 }
+
+
+/* Checkout & Install
+        ↓
+ESLint
+        ↓
+SonarQube
+        ↓
+Build
+        ↓
+Backup IIS
+        ↓
+Deploy IIS
+        ↓
+Playwright Tests
+             │
+      ┌──────┴──────┐
+      │             │
+   PASS          FAIL
+      │             │
+      │       Rollback.ps1
+      │             │
+   Success       Pipeline Failed */
