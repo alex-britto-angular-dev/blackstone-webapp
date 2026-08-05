@@ -2,6 +2,14 @@ import { test, expect } from '@playwright/test';
 
 test('Login API returns 200', async ({ page }) => {
 
+  page.on('request', req => {
+    console.log('REQUEST:', req.method(), req.url());
+  });
+
+  page.on('response', res => {
+    console.log('RESPONSE:', res.status(), res.url());
+  });
+
   await page.goto('http://localhost:4200/login');
 
   await page.fill('#username', 'admin');
@@ -17,5 +25,4 @@ test('Login API returns 200', async ({ page }) => {
   const response = await responsePromise;
 
   expect(response.status()).toBe(200);
-
 });
